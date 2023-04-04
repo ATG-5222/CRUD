@@ -15,18 +15,7 @@
 
     <body>
 
-        <header class="bg-gray-800 py-4">
-            <div class="container mx-auto flex justify-between items-center px-4">
-                <h1 class="text-white text-2xl">Mi aplicación</h1>
-                <nav class="text-white">
-                    <a href="/" class="mx-4 hover:text-gray-400">Pagina de inicio</a>
-                    <a href="/crud/create" class="mx-4 hover:text-gray-400">Create</a>
-                    <a href="/crud/read" class="mx-4 hover:text-gray-400">Read</a>
-                    <a href="#" class="mx-4 hover:text-gray-400">Update</a>
-                    <a href="#" class="mx-4 hover:text-gray-400">Delete</a>
-                </nav>
-            </div>
-        </header>
+        <%- include('includes/navbar'); %>
 
         <main class="container mx-auto my-8">
         <h2 class="text-2xl font-bold mb-4">Buscar productos</h2>

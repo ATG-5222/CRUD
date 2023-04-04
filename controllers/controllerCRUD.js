@@ -12,6 +12,10 @@ exports.postCreateText = (req, res, next) => {
     res.redirect('/crud/read');
 }
 
+exports.postCreateMedia = (req, res, next) => {
+    
+}
+
 exports.postCreateFile = (req, res, next) => {
     
 }

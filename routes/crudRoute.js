@@ -5,6 +5,7 @@ const crudController = require('../controllers/controllerCRUD');
 
 //Create
 router.post('/create/text', crudController.postCreateText);
+router.post('/create/media', crudController.postCreateMedia);
 router.post('/create/file', crudController.postCreateFile);
 router.get('/create', crudController.getCreate);
 //Read

@@ -3,7 +3,7 @@ const mysql = require('mysql2');
 const database = {
     host: 'localhost',
     user: 'root',
-    database: 'catalogo1',
+    database: 'crud',
     password: '',
 };
 

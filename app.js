@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 //const routeHomepage = require('./routes/routeHomepage');
 
-app.use('/buscar', routeSearchpage);
+app.use('/', routeSearchpage);
 
 app.use((req, res, next) => {
     res.render('error404');

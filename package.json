@@ -1,0 +1,30 @@
+{
+  "name": "crud",
+  "version": "1.0.0",
+  "description": "Esta es una aplicación de CRUD con Node, Express y MySQL.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ATG-5222/CRUD.git"
+  },
+  "keywords": [],
+  "author": "Aldo Tena Garcia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ATG-5222/CRUD/issues"
+  },
+  "homepage": "https://github.com/ATG-5222/CRUD#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "jquery": "^3.6.4",
+    "mysql2": "^3.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}

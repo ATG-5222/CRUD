@@ -8,4 +8,10 @@ module.exports = class Text {
         );
     }
 
+    static fecthAll() {
+        return db.execute(
+            'SELECT * FROM test_text'
+        );
+    }
+
 }

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CRUD - Read</title>
+        <!-- Enlazar con el archivo de estilos de Tailwind -->
+        <link href="//cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+        <!-- Enlazar con el archivo de DataTables CSS -->
+        <link href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <header class="bg-gray-800 py-4">
+            <div class="container mx-auto flex justify-between items-center px-4">
+                <h1 class="text-white text-2xl">Mi aplicación</h1>
+                <nav class="text-white">
+                    <a href="/" class="mx-4 hover:text-gray-400">Pagina de inicio</a>
+                    <a href="/crud/create" class="mx-4 hover:text-gray-400">Create</a>
+                    <a href="/crud/read" class="mx-4 hover:text-gray-400">Read</a>
+                    <a href="#" class="mx-4 hover:text-gray-400">Update</a>
+                    <a href="#" class="mx-4 hover:text-gray-400">Delete</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="container mx-auto my-8">
+        <h2 class="text-2xl font-bold mb-4">Buscar productos</h2>
+        <form id="form">
+            <!-- Campo de texto para ingresar el parámetro de la consulta -->
+            <input type="text" id="parametro" name="parametro" placeholder="Ingresa un nombre">
+            <!-- Botón para actualizar la tabla -->
+            <button type="submit" id="actualizar">Actualizar tabla</button>
+        </form>
+        <!-- Inicio de la DataTable -->
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            </table>
+        </div>
+
+        <!-- Enlazar con la biblioteca de jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+        <!-- Enlazar con el archivo de DataTables JS -->
+        <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/locale/es.js"></script>
+
+        <script crossorigin="anonymous" type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
+
+        <script crossorigin="anonymous" type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+        <script crossorigin="anonymous" type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script crossorigin="anonymous" type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+        <script crossorigin="anonymous" type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+
+        <script type="text/javascript">
+        var log = console.log;
+        $(document).ready(function(e){
+            recargarTablaUsuarios()
+        })
+        </script>
+
+        <script type="text/javascript">
+        //Intercepta el submit del form
+        $("#form").submit(function(e){
+            e.preventDefault()
+            log("Submit del form")
+        })
+        </script>
+
+        <script type="text/javascript">
+        function recargarTablaUsuarios(){
+            if ($.fn.DataTable.isDataTable("#dataTable")) {
+            //$("#table_report").DataTable().clear().draw();
+            $("#dataTable").dataTable().fnDestroy();
+            //$("#table_report").dataTable();
+            $('#dataTable').empty();
+            }
+            var thead = ""
+            var tfooter = ""
+            thead += '<thead>'
+                thead += '<tr>'
+                thead += '<th>Id</th>'
+                thead += '<th>Texto</th>'
+                thead += '</tr>'
+            thead += '</thead>'
+            tfooter += '<tfoot>'
+                tfooter += '<tr>'
+                tfooter += '<th>Id</th>'
+                tfooter += '<th>Texto</th>'
+                tfooter += '</tr>'
+            tfooter += '</tfoot>'
+            $('#dataTable').append(thead);
+            $('#dataTable').append(tfooter);
+            $.fn.dataTable.moment('DD-MM-YYYY'); //Para ordenar por fecha
+            dataTable = $("#dataTable").dataTable({
+            language: {
+                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            },
+            processing : true,
+            lengthMenu : [10, 1, 2, 3, 5],
+            order      : [[0,'asc']],
+            deferRender: true,
+            ajax       : '/crud/read/obtener_texto',
+            columns    : [
+                {
+                    data: "idTestText"
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        log(data)
+                        return '<span class="badge badge-success">'+data.text+'</span>'
+                    }
+                },
+                ] 
+            })
+        }
+        </script>
+
+    </body>
+</html>

@@ -2,9 +2,9 @@ const db = require('../util/database');
 
 module.exports = class Text {
 
-    static insertRegister(texto) {
+    static insertRegister(text) {
         return db.execute(
-            'INSERT INTO test-text (text) VALUES (?)',[texto]
+            'INSERT INTO test_text(text) VALUES (?)',[text]
         );
     }
 

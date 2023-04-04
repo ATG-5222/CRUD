@@ -3,8 +3,8 @@ const router = express.Router();
 
 const crudController = require('../controllers/controllerCRUD');
 
-// Rutas
+router.post('/create/text', crudController.postCreateText);
+router.post('/create/file', crudController.postCreateFile);
 router.get('/create', crudController.getCreate);
-router.post('/create', crudController.postCreate);
 
 module.exports = router;

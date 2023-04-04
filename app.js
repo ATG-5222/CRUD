@@ -14,9 +14,9 @@ app.set('views', 'views');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//const routeHomepage = require('./routes/routeHomepage');
+const routeHomepage = require('./routes/homepageRoute');
 
-app.use('/', routeSearchpage);
+app.use('/', routeHomepage);
 
 app.use((req, res, next) => {
     res.render('error404');

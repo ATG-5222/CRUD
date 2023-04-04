@@ -15,7 +15,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const routeHomepage = require('./routes/homepageRoute');
+const routeCRUD = require('./routes/crudRoute');
 
+app.use('/crud', routeCRUD);
 app.use('/', routeHomepage);
 
 app.use((req, res, next) => {

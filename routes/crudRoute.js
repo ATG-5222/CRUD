@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const crudController = require('../controllers/crudController');
+const crudController = require('../controllers/controllerCRUD');
 
 // Rutas
 router.get('/create', crudController.getCreate);

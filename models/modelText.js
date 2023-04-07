@@ -14,4 +14,10 @@ module.exports = class Text {
         );
     }
 
+    static fecthRegisterById(id) {
+        return db.execute(
+            'SELECT * FROM test_text WHERE idTestText = id'
+        );
+    }
+
 }

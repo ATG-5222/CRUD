@@ -37,6 +37,12 @@ exports.getUpdate = (req, res, next) => {
     res.render('update')
 }
 
+exports.getRegisterById = async(req, res, next) => {
+    const id = req.params.id;
+    const data  = await Text.fecthRegisterById(id);
+    res.status(200).json({code:200,code:"Ok",data:data[0]})
+}
+
 // Operaciones de Delete ---------------
 
 exports.getDelete = (req, res, next) => {

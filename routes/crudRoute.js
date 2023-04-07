@@ -12,7 +12,7 @@ router.get('/create', crudController.getCreate);
 router.get('/read/obtener_texto', crudController.getReadText);
 router.get('/read', crudController.getRead);
 //Update
-
+router.get('/update/obtener_registro/:id', crudController.getRegisterById);
 router.get('/update', crudController.getUpdate);
 //Delete
 

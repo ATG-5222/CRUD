@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="bg-gray-100 px-4 py-3 border-t border-gray-300 text-right">
-                    <button type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-300 border border-gray-400 rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-300 border border-gray-400 rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2 btnCancelar" data-dismiss="modal">Cancelar</button>
                     <button type="submit" id="btnGuardar" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-700 border border-transparent rounded-md shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Guardar</button>
                 </div>
                 </form>
@@ -147,7 +147,7 @@
         </script>
 
         <script type="text/javascript">
-            //EDITAR        
+            //EDITAR REGISTRO      
             $(document).on("click", ".btnEditar", function(){		            
                 opcion='editar';
                 console.log("Hola desde editar");
@@ -160,6 +160,14 @@
                 $("#descripcion").val(descripcion);          
                 $(".modal-title").text("Editar Artículo");
                 $("#modalCRUD").css("display", "block");
+            });
+        </script>
+
+        <script type="text/javascript">
+            //ESCONDER MODAL        
+            $(document).on("click", ".btnCancelar", function(){		            
+                console.log("Hola desde esconder");
+                $("#modalCRUD").css("display", "none");
             });
         </script>
 

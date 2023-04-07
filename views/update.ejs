@@ -28,43 +28,41 @@
         </div>
 
         <!-- Inicio del modal -->
-        <div class="fixed z-50 inset-0 overflow-y-auto" id="action_modal">
-            <div class="flex items-center justify-center min-h-screen">
-                <div class="bg-white rounded-lg overflow-hidden">
-                    <form method="post" id="sample_form" class="p-6">
-                    <div class="border-b-2 border-gray-200 p-4 flex justify-between items-center">
-                        <h5 class="font-bold text-lg" id="dynamic_modal_title"></h5>
-                        <button type="button" class="text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="p-4">
-                        <div class="mb-4">
-                        <label class="block text-gray-700 font-bold mb-2" for="first_name">First Name</label>
-                        <input type="text" name="first_name" id="first_name" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+        <div class="modal fixed z-10 inset-0 overflow-y-auto" id="action_modal" style="display:none">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" id="sample_form">
+                        <div class="modal-header" id="dynamic_modal_title">
+                            <h5 class="modal-title"></h5>
+                            <button type="button" class="btn-close" onclick="closeModal()" aria-label="Close"></button>
                         </div>
-                        <div class="mb-4">
-                        <label class="block text-gray-700 font-bold mb-2" for="last_name">Last Name</label>
-                        <input type="text" name="last_name" id="last_name" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">First Name</label>
+                                <input type="text" name="first_name" id="first_name" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" name="last_name" id="last_name" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Gender</label>
+                                <select name="gender" id="gender" class="form-control">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Age</label>
+                                <input type="nummber" name="age" id="age" class="form-control" />
+                            </div>
                         </div>
-                        <div class="mb-4">
-                        <label class="block text-gray-700 font-bold mb-2" for="gender">Gender</label>
-                        <select name="gender" id="gender" class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
+                        <div class="modal-footer">
+                            <input type="hidden" name="id" id="id" />
+                            <input type="hidden" name="action" id="action" value="Add" />
+                            <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+                            <button type="submit" class="btn btn-primary" id="action_button">Add</button>
                         </div>
-                        <div class="mb-4">
-                        <label class="block text-gray-700 font-bold mb-2" for="age">Age</label>
-                        <input type="number" name="age" id="age" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
-                        </div>
-                    </div>
-                    <div class="border-t-2 border-gray-200 p-4 flex justify-end items-center">
-                        <input type="hidden" name="id" id="id" />
-                        <input type="hidden" name="action" id="action" value="Add" />
-                        <button type="button" class="px-4 py-2 mr-2 border border-gray-300 rounded-md text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800" data-dismiss="modal">Close</button>
-                        <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="action_button">Add</button>
-                    </div>
                     </form>
                 </div>
             </div>
@@ -164,6 +162,10 @@
             $(document).on("click", ".edit", function() {
                 var id = $(this).data('dataId');
                 console.log(id);
+                $('#dynamic_modal_title').text('Edit Data');
+                $('#action').val('Edit');
+                $('#action_button').text('Edit');
+                $('#action_modal').val('show');
                 // Hacer la petición a Node para obtener la información del registro
                 $.ajax({
                     url: "/ruta-para-obtener-informacion/" + id,

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CRUD - Update</title>
+        <!-- Enlazar con el archivo de estilos de Tailwind -->
+        <link href="//cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+        <!-- Enlazar con el archivo de DataTables CSS -->
+        <link href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <%- include('includes/navbar'); %>
+
+        <main class="container mx-auto my-8">
+        <div class="flex items-center justify-center">
+            <h2 class="text-2xl font-bold mb-4">Elementos de la tabla test_text</h2>
+        </div>
+        <!-- Inicio de la DataTable -->
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            </table>
+        </div>
+
+        <!-- Inicio del modal -->
+        <div class="fixed z-50 inset-0 overflow-y-auto" id="action_modal">
+            <div class="flex items-center justify-center min-h-screen">
+                <div class="bg-white rounded-lg overflow-hidden">
+                    <form method="post" id="sample_form" class="p-6">
+                    <div class="border-b-2 border-gray-200 p-4 flex justify-between items-center">
+                        <h5 class="font-bold text-lg" id="dynamic_modal_title"></h5>
+                        <button type="button" class="text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="first_name">First Name</label>
+                        <input type="text" name="first_name" id="first_name" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+                        </div>
+                        <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="last_name">Last Name</label>
+                        <input type="text" name="last_name" id="last_name" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+                        </div>
+                        <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="gender">Gender</label>
+                        <select name="gender" id="gender" class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        </div>
+                        <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="age">Age</label>
+                        <input type="number" name="age" id="age" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+                        </div>
+                    </div>
+                    <div class="border-t-2 border-gray-200 p-4 flex justify-end items-center">
+                        <input type="hidden" name="id" id="id" />
+                        <input type="hidden" name="action" id="action" value="Add" />
+                        <button type="button" class="px-4 py-2 mr-2 border border-gray-300 rounded-md text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800" data-dismiss="modal">Close</button>
+                        <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="action_button">Add</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enlazar con la biblioteca de jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+        <!-- Enlazar con el archivo de DataTables JS -->
+        <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/locale/es.js"></script>
+
+        <script crossorigin="anonymous" type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
+
+        <script crossorigin="anonymous" type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+        <script crossorigin="anonymous" type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script crossorigin="anonymous" type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+        <script crossorigin="anonymous" type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+
+        <script type="text/javascript">
+            var log = console.log;
+            $(document).ready(function(e){
+                recargarTablaUsuarios()
+            })
+        </script>
+
+        <script type="text/javascript">
+            //Intercepta el submit del form
+            $("#form").submit(function(e){
+                e.preventDefault()
+                log("Submit del form")
+            })
+        </script>
+
+        <script type="text/javascript">
+        function recargarTablaUsuarios(){
+            if ($.fn.DataTable.isDataTable("#dataTable")) {
+            //$("#table_report").DataTable().clear().draw();
+            $("#dataTable").dataTable().fnDestroy();
+            //$("#table_report").dataTable();
+            $('#dataTable').empty();
+            }
+            var thead = ""
+            var tfooter = ""
+            thead += '<thead>'
+                thead += '<tr>'
+                thead += '<th>Id</th>'
+                thead += '<th>Texto</th>'
+                thead += '<th>Modificar elemento</th>'
+                thead += '</tr>'
+            thead += '</thead>'
+            tfooter += '<tfoot>'
+                tfooter += '<tr>'
+                tfooter += '<th>Id</th>'
+                tfooter += '<th>Texto</th>'
+                tfooter += '<th>Modificar elemento</th>'
+                tfooter += '</tr>'
+            tfooter += '</tfoot>'
+            $('#dataTable').append(thead);
+            $('#dataTable').append(tfooter);
+            $.fn.dataTable.moment('DD-MM-YYYY'); //Para ordenar por fecha
+            dataTable = $("#dataTable").dataTable({
+            language: {
+                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            },
+            processing : true,
+            lengthMenu : [10, 1, 2, 3, 5],
+            order      : [[0,'asc']],
+            deferRender: true,
+            ajax       : '/crud/read/obtener_texto',
+            columns    : [
+                {
+                    data: "idTestText"
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return '<span class="badge badge-success">'+data.text+'</span>'
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return '<button type="button" id="button" dataId='+data.idTestText+' class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded editar">Edit</button>'
+                    }
+                },
+                ] 
+            })
+        }
+        </script>
+
+        <script type="text/javascript">
+            $(document).on("click", ".edit", function() {
+                var id = $(this).data('dataId');
+                console.log(id);
+                // Hacer la petición a Node para obtener la información del registro
+                $.ajax({
+                    url: "/ruta-para-obtener-informacion/" + id,
+                    method: "GET",
+                    success: function(data) {
+                        // Agregar la información del registro al modal
+                        $("#modal-titulo").html("Editar registro #" + id);
+                        $("#campo-1").val(data.campo1);
+                        $("#campo-2").val(data.campo2);
+                    // ... agregar más campos según sea necesario
+                    // Abrir el modal
+                    $("#modal").modal("show");
+                    },
+                    error: function() {
+                        alert("Error al obtener información del registro.");
+                    }
+                    });
+                });
+        </script>
+
+    </body>
+</html>

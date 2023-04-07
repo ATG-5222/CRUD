@@ -34,7 +34,7 @@ exports.getReadText = async(req, res, next) => {
 // Operaciones de Update ---------------
 
 exports.getUpdate = (req, res, next) => {
-    //res.render('update')
+    res.render('update')
 }
 
 // Operaciones de Delete ---------------

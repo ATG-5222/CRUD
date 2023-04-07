@@ -13,6 +13,7 @@ router.get('/read/obtener_texto', crudController.getReadText);
 router.get('/read', crudController.getRead);
 //Update
 
+router.get('/update', crudController.getUpdate);
 //Delete
 
 module.exports = router;

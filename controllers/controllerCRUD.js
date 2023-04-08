@@ -46,5 +46,10 @@ exports.updateRegisterById = async(req, res, next) => {
 // Operaciones de Delete ---------------
 
 exports.getDelete = (req, res, next) => {
-    //res.render('delete')
+    res.render('delete')
+}
+
+exports.deleteRegisterById = async(req, res, next) => {
+    const id = req.params.id;
+    await Text.deleteRegisterById(id);
 }

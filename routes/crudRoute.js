@@ -15,5 +15,7 @@ router.get('/read', crudController.getRead);
 router.put('/update/actualizar_registro/:id', crudController.updateRegisterById);
 router.get('/update', crudController.getUpdate);
 //Delete
+router.delete('/delete/eliminar_registro/:id', crudController.deleteRegisterById);
+router.get('/delete', crudController.getDelete);
 
 module.exports = router;

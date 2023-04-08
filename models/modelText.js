@@ -20,4 +20,10 @@ module.exports = class Text {
         );
     }
 
+    static deleteRegisterById(id) {
+        return db.execute(
+            'DELETE FROM test_text WHERE idTestText=?',[id]
+        );
+    }
+
 }

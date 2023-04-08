@@ -14,9 +14,9 @@ module.exports = class Text {
         );
     }
 
-    static fecthRegisterById(id) {
+    static updateRegisterById(id,text) {
         return db.execute(
-            'SELECT * FROM test_text WHERE idTestText = id'
+            'UPDATE test_text SET text = ? WHERE idTestText=?',[text,id]
         );
     }
 

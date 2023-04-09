@@ -18,6 +18,7 @@ exports.postCreateMedia = (req, res, next) => {
     const media = req.body.media;
     console.log("Text",text);
     console.log("Media",media);
+    res.status(200).json({code: 200, msg:"Ok"})
 }
 
 exports.postCreateFile = (req, res, next) => {

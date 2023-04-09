@@ -8,7 +8,7 @@ const port = 3000;
 
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, 'publics')));
+app.use(express.static(path.join(__dirname, 'assets')));
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -16,6 +16,8 @@ app.use(bodyParser.json());
 
 const routeHomepage = require('./routes/homepageRoute');
 const routeCRUD = require('./routes/crudRoute');
+
+app.use("/public",express.static(__dirname + '/public')); 
 
 app.use('/crud', routeCRUD);
 app.use('/', routeHomepage);

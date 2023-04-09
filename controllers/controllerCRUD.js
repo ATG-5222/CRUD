@@ -1,4 +1,5 @@
 const Text = require('../models/modelText');
+const Media = require('../models/testMedia');
 
 // Operaciones de Create ---------------
 
@@ -13,7 +14,10 @@ exports.postCreateText = (req, res, next) => {
 }
 
 exports.postCreateMedia = (req, res, next) => {
-    
+    const text = req.body.nombreMedia;
+    const media = req.body.media;
+    console.log("Text",text);
+    console.log("Media",media);
 }
 
 exports.postCreateFile = (req, res, next) => {

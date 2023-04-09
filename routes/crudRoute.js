@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 const crudController = require('../controllers/controllerCRUD');
+const {upload} = require('../middleware/images');
 
 //Create
 router.post('/create/text', crudController.postCreateText);
-router.post('/create/media', crudController.postCreateMedia);
+router.post('/create/media', upload.single("image"), crudController.postCreateMedia);
 router.post('/create/file', crudController.postCreateFile);
 router.get('/create', crudController.getCreate);
 //Read

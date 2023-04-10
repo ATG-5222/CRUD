@@ -16,7 +16,6 @@ exports.postCreateText = (req, res, next) => {
 }
 
 exports.postCreateMedia = (req, res, next) => {
-
     var uploadMedia = upload.array('media',1);
     uploadMedia(req,res,function(err) {
         if(err) {

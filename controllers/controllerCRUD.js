@@ -1,3 +1,5 @@
+const { upload } = require('../middleware/multerImages');
+const path = require('path');
 const Text = require('../models/modelText');
 const Media = require('../models/testMedia');
 
@@ -14,21 +16,26 @@ exports.postCreateText = (req, res, next) => {
 }
 
 exports.postCreateMedia = (req, res, next) => {
-    const text = req.body.nombreMedia;
-    const media = req.body.media;
-    console.log("Text",text);
-    console.log("Media",media);
-    // var upload = multer({ storage : storage }).array('file',1);
-    // upload(req,res,function(err) {
-    //     if(err) {
-    //         console.log(err);
-    //         return res.end("Error uploading file.");
-    //     }
-    //     var pathDest = req.files[0].destination.slice(1)
-    //     var finalPath = path.join(__dirname, '../../'+pathDest)
-    //     log(finalPath)
-    //     res.status(200).json({code: 200, msg:"Ok"})  
-    // })
+    // const text = req.body.nombreMedia;
+    // const media = req.body.media;
+    // console.log("Text",text);
+    // console.log("Media",media);
+    var uploadMedia = upload.array('media',1);
+    uploadMedia(req,res,function(err) {
+        if(err) {
+            console.log(err);
+            return res.end("Error uploading file.");
+        }
+        var pathDest = req.files[0].destination.slice(1);
+        console.log("pathDest",pathDest);
+        var finalPath = path.join(__dirname, '../'+pathDest);
+        const text = req.body.nombreMedia;
+        //const media = req.body.media;
+        console.log("Text",text);
+        //console.log("Media",media);
+        console.log("finalPath: ",finalPath);
+        res.status(200).json({code: 200, msg:"Ok"}); 
+    })
 }
 
 exports.postCreateFile = (req, res, next) => {

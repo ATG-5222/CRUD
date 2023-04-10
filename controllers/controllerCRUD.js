@@ -18,7 +18,17 @@ exports.postCreateMedia = (req, res, next) => {
     const media = req.body.media;
     console.log("Text",text);
     console.log("Media",media);
-    res.status(200).json({code: 200, msg:"Ok"})
+    // var upload = multer({ storage : storage }).array('file',1);
+    // upload(req,res,function(err) {
+    //     if(err) {
+    //         console.log(err);
+    //         return res.end("Error uploading file.");
+    //     }
+    //     var pathDest = req.files[0].destination.slice(1)
+    //     var finalPath = path.join(__dirname, '../../'+pathDest)
+    //     log(finalPath)
+    //     res.status(200).json({code: 200, msg:"Ok"})  
+    // })
 }
 
 exports.postCreateFile = (req, res, next) => {

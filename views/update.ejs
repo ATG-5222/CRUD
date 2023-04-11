@@ -37,8 +37,8 @@
                 </table>
             </div>
 
-        <!-- Modal para CRUD -->
-        <div id="modalText" style="display:none" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Modal para TEXT -->
+        <div id="modalText" style="display:none" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title-text" role="dialog" aria-modal="true">
             <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div class="fixed inset-0 transition-opacity">
                 <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -47,19 +47,61 @@
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
             <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <div class="bg-gray-200 px-4 py-3 border-b border-gray-300 text-lg font-semibold uppercase">
-                <h5 id="modal-title" class="inline-block"></h5>
+                <h5 id="modal-title-text" class="inline-block"></h5>
                 </div>
                 <form id="formText" class="px-4 py-3">
                 <div class="bg-white">
                     <label for="idRegistro" class="block text-gray-700 font-semibold mb-2">Registro con el Id: </label>
-                    <input id="idRegistro" type="text" readonly>
+                    <input id="idRegistro" id="idRegistro" type="text" readonly>
                     <div class="mb-4">
                     <label for="descripcion" class="block text-gray-700 font-semibold mb-2">Descripción:</label>
-                    <input id="descripcion" name="descripcion" type="text" class="form-control w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:ring-opacity-50">
+                    <input id="descripcion" name="descripcion" type="text" class="form-control w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:ring-opacity-50" required>
                     </div>
                 </div>
                 <div class="bg-gray-100 px-4 py-3 border-t border-gray-300 text-right">
                     <button type="button" onclick="esconderModalText()" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-300 border border-gray-400 rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2 btnCancelar" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="btnGuardar" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-700 border border-transparent rounded-md shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Guardar</button>
+                </div>
+                </form>
+            </div>
+            </div>
+        </div>
+
+        <!-- Modal para MEDIA -->
+        <div id="modalMedia" style="display:none" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title-media" role="dialog" aria-modal="true">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <!-- This element is to trick the browser into centering the modal contents. -->
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-gray-200 px-4 py-3 border-b border-gray-300 text-lg font-semibold uppercase">
+                <h5 id="modal-title-media" class="inline-block"></h5>
+                </div>
+                <form id="formMedia" class="px-4 py-3">
+                <div class="bg-white">
+                    <label for="idMedia" class="block text-gray-700 font-semibold mb-2">Imagen con el Id: </label>
+                    <input id="idMedia" name="idMedia" type="text" readonly>
+                    <div class="mb-4">
+                    <div class="mb-4">
+                    <label for="mediaDesc" class="block text-gray-700 font-semibold mb-2">Descripcion:</label>
+                    <input id="mediaDesc" name="mediaDesc" type="text" class="form-control w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:ring-opacity-50" required>
+                    </div>
+                    <div class="mb-4">
+                    <label for="mediaRoute" class="block text-gray-700 font-semibold mb-2">Ruta de la imagen:</label>
+                    <input id="mediaRoute" name="mediaRoute" type="text" class="form-control w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:ring-opacity-50" readonly>
+                    </div>
+                    <label for="media" class="block text-gray-700 font-semibold mb-2">Imagen actual:</label>
+                    <input id="media" name="media" type="text" class="form-control w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:ring-opacity-50" readonly>
+                    </div>
+                    <div class="mb-4">
+                    <label for="mediaUpdate" class="block text-gray-700 font-semibold mb-2">Imagen nueva:</label>
+                    <input id="mediaUpdate" name="mediaUpdate" type="file" class="form-control w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:ring-opacity-50" required>
+                    </div>
+                </div>
+                <div class="bg-gray-100 px-4 py-3 border-t border-gray-300 text-right">
+                    <button type="button" onclick="esconderModalMedia()" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-300 border border-gray-400 rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2 btnCancelar" data-dismiss="modal">Cancelar</button>
                     <button type="submit" id="btnGuardar" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-700 border border-transparent rounded-md shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Guardar</button>
                 </div>
                 </form>
@@ -163,6 +205,7 @@
                     thead += '<th>Id</th>'
                     thead += '<th>Texto</th>'
                     thead += '<th>Ruta de imagen</th>'
+                    thead += '<th>Nombre imagen</th>'
                     thead += '<th>Imagen</th>'
                     thead += '<th>Eliminar elemento</th>'
                     thead += '</tr>'
@@ -172,6 +215,7 @@
                     tfooter += '<th>Id</th>'
                     tfooter += '<th>Texto</th>'
                     tfooter += '<th>Ruta de imagen</th>'
+                    tfooter += '<th>Nombre imagen</th>'
                     tfooter += '<th>Imagen</th>'
                     tfooter += '<th>Eliminar elemento</th>'
                     tfooter += '</tr>'
@@ -195,13 +239,19 @@
                     {
                         data: null,
                         render: function(data, type, row) {
-                            return '<span class="badge badge-success">'+data.mediaName+'</span>'
+                            return '<span class="badge badge-success">'+data.mediaDescription+'</span>'
                         }
                     },
                     {
                         data: null,
                         render: function(data, type, row) {
-                            return '<span class="badge badge-success">'+data.mediaRoute+"-"+data.mediaName+'</span>'
+                            return '<span class="badge badge-success">'+data.mediaRoute+'</span>'
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return '<span class="badge badge-success">'+data.mediaName+'</span>'
                         }
                     },
                     {
@@ -223,30 +273,60 @@
         </script>
 
         <script type="text/javascript">
-            //Mostrar modal    
+            //Mostrar modal text   
             function mostrarModalText(){   
                 $("#modalText").css("display", "block");
             }
         </script>
 
         <script type="text/javascript">
-            //Esconder modal    
+            //Esconder modal text   
             function esconderModalText(){   
                 $("#modalText").css("display", "none");
             }
         </script>
 
         <script type="text/javascript">
-            //Mostar modal de Editar registro    
+            //Mostrar modal media
+            function mostrarModalMedia(){   
+                $("#modalMedia").css("display", "block");
+            }
+        </script>
+
+        <script type="text/javascript">
+            //Esconder modal media   
+            function esconderModalMedia(){   
+                $("#modalMedia").css("display", "none");
+            }
+        </script>
+
+        <script type="text/javascript">
+            //Mostar modal de Editar registro DE TEXTO    
             $(document).on("click", ".btnEditarText", function(){		            
-                opcion='editar';
                 fila = $(this).closest("tr");	        
                 id = parseInt(fila.find('td:eq(0)').text());
                 descripcion = fila.find('td:eq(1)').text(); 
                 $("#idRegistro").val(id);
                 $("#descripcion").val(descripcion);          
-                $(".modal-title").text("Editar Artículo");
+                $(".modal-title-text").text("Editar Artículo");
                 mostrarModalText()
+            });
+        </script>
+
+        <script type="text/javascript">
+            //Mostar modal de Editar registro DE MEDIA    
+            $(document).on("click", ".btnEditarMedia", function(){		            
+                fila = $(this).closest("tr");	        
+                id = parseInt(fila.find('td:eq(0)').text());
+                descripcion = fila.find('td:eq(1)').text(); 
+                ruta = fila.find('td:eq(2)').text(); 
+                img = fila.find('td:eq(3)').text(); 
+                $("#idMedia").val(id);
+                $("#mediaDesc").val(descripcion);
+                $("#mediaRoute").val(ruta);
+                $("#media").val(img);          
+                $(".modal-title-media").text("Editar Artículo");
+                mostrarModalMedia()
             });
         </script>
 
@@ -257,7 +337,7 @@
                 id = $.trim($('#idRegistro').val());    
                 descripcion = $.trim($('#descripcion').val());
                 $.ajax({                    
-                    url: '/crud/update/actualizar_registro/'+id,
+                    url: '/crud/update/actualizar_registro/text/'+id,
                     method: 'PUT',                                        
                     contentType: 'application/json',  
                     data:  JSON.stringify({
@@ -267,6 +347,48 @@
                 });
                 recargarTablaTestText()
                 esconderModalText()
+            });   
+        </script>
+
+        <!-- <script type="text/javascript">
+            //Editar registro
+            $('#formMedia').submit(function(e){                                     
+                e.preventDefault();
+                idMedia = $.trim($('#idMedia').val());   
+                mediaDesc = $.trim($('#mediaDesc').val());
+                mediaRoute = $.trim($('#mediaRoute').val());
+                media = $.trim($('#media').val()); 
+                mediaUpdate = $.trim($('#mediaUpdate').val());  
+                $.ajax({                    
+                    url: '/crud/update/actualizar_registro/media/'+id,
+                    method: 'PUT',                                         
+                    enctype: "multipart/form-data",
+                    data:  {
+                        idMedia:idMedia, 
+                        mediaDesc:mediaDesc,
+                        mediaRoute:mediaRoute,
+                        media:media,
+                        mediaUpdate:mediaUpdate
+                    },                       
+                });
+                recargarTablaTestMedia()
+                esconderModalMedia()
+            });   
+        </script> -->
+
+        <script type="text/javascript">
+            //Editar registro
+            $('#formMedia').submit(function(e){                                     
+                e.preventDefault();
+                $.ajax( {
+                    url: '/crud/update/actualizar_registro/media/'+id,
+                    method: 'PUT',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false
+                } );
+                recargarTablaTestMedia()
+                esconderModalMedia()
             });   
         </script>
 

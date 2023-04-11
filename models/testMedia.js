@@ -1,6 +1,6 @@
 const db = require('../util/database');
 
-module.exports = class Text {
+module.exports = class Media {
 
     static insertRegister(text,route,name) {
         return db.execute(
@@ -12,6 +12,13 @@ module.exports = class Text {
     static fecthAll() {
         return db.execute(
             'SELECT * FROM test_media'
+        );
+    }
+
+    static updateRegisterById(id,text,imgName) {
+        return db.execute(
+            'UPDATE test_media SET mediaDescription = ?, mediaName = ?  WHERE idTestMedia = ?',
+            [text,imgName,id]
         );
     }
 

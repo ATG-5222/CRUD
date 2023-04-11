@@ -59,10 +59,40 @@ exports.getUpdate = (req, res, next) => {
     res.render('update')
 }
 
+exports.updateTextById = async(req, res, next) => {
+    const id = req.params.id;
+    const text = req.body.descripcion;
+    await Text.updateRegisterById(id,text);
+}
+
 exports.updateRegisterById = async(req, res, next) => {
     const id = req.params.id;
     const text = req.body.descripcion;
     await Text.updateRegisterById(id,text);
+}
+
+exports.updateRegisterById = async(req, res, next) => {
+    var uploadMedia = upload.array('mediaUpdate',1);
+    uploadMedia(req,res,function(err) {
+        if(err) {
+            console.log(err);
+            return res.end("Error uploading file.");
+        }
+        const id = req.body.idMedia;
+        const descripcion = req.body.mediaDesc;
+        const ruta = req.body.mediaRoute;
+        const media = req.body.media;
+        var pathDest = req.files[0].destination.slice(1);
+        var finalPath = path.join(__dirname, '../'+pathDest);
+        const filename = req.files[0].filename;
+        Media.updateRegisterById(id,descripcion,filename);
+        fs.unlink(ruta +"/"+ media, (err) => {
+            if (err) {
+                throw err;
+            }
+        });
+        res.redirect('/crud/read');
+    })
 }
 
 // Operaciones de Delete ---------------

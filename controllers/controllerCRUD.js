@@ -24,10 +24,10 @@ exports.postCreateMedia = (req, res, next) => {
         }
         const text = req.body.nombreMedia;
         var pathDest = req.files[0].destination.slice(1);
-        console.log("pathDest",pathDest);
         var finalPath = path.join(__dirname, '../'+pathDest);
+        const filename = req.files[0].filename;
         //res.status(200).json({code: 200, msg:"Ok"}); 
-        Media.insertRegister(text,finalPath);
+        Media.insertRegister(text,finalPath,filename);
         res.redirect('/crud/read');
     })
 }
@@ -44,6 +44,11 @@ exports.getRead = (req, res, next) => {
 
 exports.getReadText = async(req, res, next) => {
     const data  = await Text.fecthAll();
+    res.status(200).json({code:200,code:"Ok",data:data[0]})
+}
+
+exports.getReadMedia = async(req, res, next) => {
+    const data  = await Media.fecthAll();
     res.status(200).json({code:200,code:"Ok",data:data[0]})
 }
 

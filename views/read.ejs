@@ -18,12 +18,21 @@
         <%- include('includes/navbar'); %>
 
         <main class="container mx-auto my-8">
+
         <div class="flex items-center justify-center">
             <h2 class="text-2xl font-bold mb-4">Elementos de la tabla test_text</h2>
         </div>
-        <!-- Inicio de la DataTable -->
+        <!-- Inicio de la DataTable de test_text -->
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTableTestText" width="100%" cellspacing="0">
+            </table>
+        </div>
+        <div class="flex items-center justify-center">
+            <h2 class="text-2xl font-bold mb-4">Elementos de la tabla test_media</h2>
+        </div>
+        <!-- Inicio de la DataTable de test_media -->
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTableTestMedia" width="100%" cellspacing="0">
             </table>
         </div>
 
@@ -48,7 +57,8 @@
         <script type="text/javascript">
         var log = console.log;
         $(document).ready(function(e){
-            recargarTablaUsuarios()
+            recargarTablaTestText()
+            recargarTablaTestMedia()
         })
         </script>
 
@@ -61,12 +71,12 @@
         </script>
 
         <script type="text/javascript">
-        function recargarTablaUsuarios(){
-            if ($.fn.DataTable.isDataTable("#dataTable")) {
+        function recargarTablaTestText(){
+            if ($.fn.DataTable.isDataTable("#dataTableTestText")) {
             //$("#table_report").DataTable().clear().draw();
-            $("#dataTable").dataTable().fnDestroy();
+            $("#dataTableTestText").dataTable().fnDestroy();
             //$("#table_report").dataTable();
-            $('#dataTable').empty();
+            $('#dataTableTestText').empty();
             }
             var thead = ""
             var tfooter = ""
@@ -82,15 +92,15 @@
                 tfooter += '<th>Texto</th>'
                 tfooter += '</tr>'
             tfooter += '</tfoot>'
-            $('#dataTable').append(thead);
-            $('#dataTable').append(tfooter);
+            $('#dataTableTestText').append(thead);
+            $('#dataTableTestText').append(tfooter);
             $.fn.dataTable.moment('DD-MM-YYYY'); //Para ordenar por fecha
-            dataTable = $("#dataTable").dataTable({
+            dataTable = $("#dataTableTestText").dataTable({
             language: {
                 "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
             },
             processing : true,
-            lengthMenu : [10, 1, 2, 3, 5],
+            lengthMenu : [5, 1, 2, 3, 10],
             order      : [[0,'asc']],
             deferRender: true,
             ajax       : '/crud/read/obtener_texto',
@@ -107,6 +117,72 @@
                 ] 
             })
         }
+        </script>
+
+        <script type="text/javascript">
+            function recargarTablaTestMedia(){
+                if ($.fn.DataTable.isDataTable("#dataTableTestMedia")) {
+                //$("#table_report").DataTable().clear().draw();
+                $("#dataTableTestMedia").dataTable().fnDestroy();
+                //$("#table_report").dataTable();
+                $('#dataTableTestMedia').empty();
+                }
+                var thead = ""
+                var tfooter = ""
+                thead += '<thead>'
+                    thead += '<tr>'
+                    thead += '<th>Id</th>'
+                    thead += '<th>Texto</th>'
+                    thead += '<th>Ruta de imagen</th>'
+                    thead += '<th>Imagen</th>'
+                    thead += '</tr>'
+                thead += '</thead>'
+                tfooter += '<tfoot>'
+                    tfooter += '<tr>'
+                    tfooter += '<th>Id</th>'
+                    tfooter += '<th>Texto</th>'
+                    tfooter += '<th>Ruta de imagen</th>'
+                    tfooter += '<th>Imagen</th>'
+                    tfooter += '</tr>'
+                tfooter += '</tfoot>'
+                $('#dataTableTestMedia').append(thead);
+                $('#dataTableTestMedia').append(tfooter);
+                $.fn.dataTable.moment('DD-MM-YYYY'); //Para ordenar por fecha
+                dataTable = $("#dataTableTestMedia").dataTable({
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                },
+                processing : true,
+                lengthMenu : [5, 1, 2, 3, 5, 10],
+                order      : [[0,'asc']],
+                deferRender: true,
+                ajax       : '/crud/read/obtener_media',
+                columns    : [
+                    {
+                        data: "idTestMedia"
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return '<span class="badge badge-success">'+data.mediaName+'</span>'
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return '<span class="badge badge-success">'+data.mediaRoute+"-"+data.mediaName+'</span>'
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            //return '<span class="badge badge-success">'+data.mediaRoute+'</span>'
+                            return '<img src="file:///'+data.mediaRoute+'" alt="Texto alternativo" width="100" height="100">'
+                        }
+                    },
+                    ] 
+                })
+            }
         </script>
 
     </body>

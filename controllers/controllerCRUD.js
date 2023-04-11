@@ -1,5 +1,6 @@
 const { upload } = require('../middleware/multer');
 const path = require('path');
+const fs = require('fs');
 const Text = require('../models/modelText');
 const Media = require('../models/testMedia');
 
@@ -70,7 +71,19 @@ exports.getDelete = (req, res, next) => {
     res.render('delete')
 }
 
-exports.deleteRegisterById = async(req, res, next) => {
+exports.deleteTextById = async(req, res, next) => {
     const id = req.params.id;
     await Text.deleteRegisterById(id);
+}
+
+exports.deleteMediaById = async(req, res, next) => {
+    const id = req.params.id;
+    const path = await Media.fetchPathById(id);
+    const name = await Media.fetchArchiveNameById(id);
+    fs.unlink(path[0][0].mediaRoute +"/"+ name[0][0].mediaName, (err) => {
+        if (err) {
+            throw err;
+        }
+    });
+    await Media.deleteRegisterById(id);
 }

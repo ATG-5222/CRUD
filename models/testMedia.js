@@ -15,6 +15,20 @@ module.exports = class Text {
         );
     }
 
+    static fetchPathById(id) {
+        return db.execute(
+            'SELECT mediaRoute FROM test_media WHERE idTestMedia=?',
+            [id]
+        );
+    }
+
+    static fetchArchiveNameById(id) {
+        return db.execute(
+            'SELECT mediaName FROM test_media WHERE idTestMedia=?',
+            [id]
+        );
+    }
+
     static deleteRegisterById(id) {
         return db.execute(
             'DELETE FROM test_media WHERE idTestMedia=?',

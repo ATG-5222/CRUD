@@ -17,18 +17,28 @@
 
         <%- include('includes/navbar'); %>
 
+
         <main class="container mx-auto my-8">
-        <div class="flex items-center justify-center">
-            <h2 class="text-2xl font-bold mb-4">Elementos de la tabla test_text</h2>
-        </div>
-        <!-- Inicio de la DataTable -->
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            </table>
-        </div>
+            <div class="flex items-center justify-center">
+                <h2 class="text-2xl font-bold mb-4">Elementos de la tabla test_text</h2>
+            </div>
+            <!-- Inicio de la DataTable de test_text -->
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTableTestText" width="100%" cellspacing="0">
+                </table>
+            </div>
+    
+            <div class="flex items-center justify-center">
+                <h2 class="text-2xl font-bold mb-4">Elementos de la tabla test_media</h2>
+            </div>
+            <!-- Inicio de la DataTable de test_media -->
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTableTestMedia" width="100%" cellspacing="0">
+                </table>
+            </div>
 
         <!-- Modal para CRUD -->
-        <div id="modalCRUD" style="display:none" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div id="modalText" style="display:none" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div class="fixed inset-0 transition-opacity">
                 <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -39,7 +49,7 @@
                 <div class="bg-gray-200 px-4 py-3 border-b border-gray-300 text-lg font-semibold uppercase">
                 <h5 id="modal-title" class="inline-block"></h5>
                 </div>
-                <form id="formRegistros" class="px-4 py-3">
+                <form id="formText" class="px-4 py-3">
                 <div class="bg-white">
                     <label for="idRegistro" class="block text-gray-700 font-semibold mb-2">Registro con el Id: </label>
                     <input id="idRegistro" type="text" readonly>
@@ -49,7 +59,7 @@
                     </div>
                 </div>
                 <div class="bg-gray-100 px-4 py-3 border-t border-gray-300 text-right">
-                    <button type="button" onclick="esconderModal()" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-300 border border-gray-400 rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2 btnCancelar" data-dismiss="modal">Cancelar</button>
+                    <button type="button" onclick="esconderModalText()" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-300 border border-gray-400 rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2 btnCancelar" data-dismiss="modal">Cancelar</button>
                     <button type="submit" id="btnGuardar" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-gray-700 border border-transparent rounded-md shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Guardar</button>
                 </div>
                 </form>
@@ -78,16 +88,17 @@
         <script type="text/javascript">
             //Iniciar DataTable
             $(document).ready(function(e){
-                recargarTablaUsuarios()
+                recargarTablaTestText();
+                recargarTablaTestMedia();
             })
         </script>
 
         <script type="text/javascript">
             //Configuración de la DataTable
-            function recargarTablaUsuarios(){
-                if ($.fn.DataTable.isDataTable("#dataTable")) {
-                    $("#dataTable").dataTable().fnDestroy();
-                    $('#dataTable').empty();
+            function recargarTablaTestText(){
+                if ($.fn.DataTable.isDataTable("#dataTableTestText")) {
+                    $("#dataTableTestText").dataTable().fnDestroy();
+                    $('#dataTableTestText').empty();
                 }
                 var thead = ""
                 var tfooter = ""
@@ -95,25 +106,25 @@
                     thead += '<tr>'
                     thead += '<th>Id</th>'
                     thead += '<th>Texto</th>'
-                    thead += '<th>Modificar elemento</th>'
+                    thead += '<th>Eliminar elemento</th>'
                     thead += '</tr>'
                 thead += '</thead>'
                 tfooter += '<tfoot>'
                     tfooter += '<tr>'
                     tfooter += '<th>Id</th>'
                     tfooter += '<th>Texto</th>'
-                    tfooter += '<th>Modificar elemento</th>'
+                    tfooter += '<th>Eliminar elemento</th>'
                     tfooter += '</tr>'
                 tfooter += '</tfoot>'
-                $('#dataTable').append(thead);
-                $('#dataTable').append(tfooter);
+                $('#dataTableTestText').append(thead);
+                $('#dataTableTestText').append(tfooter);
                 $.fn.dataTable.moment('DD-MM-YYYY'); //Para ordenar por fecha
-                dataTable = $("#dataTable").dataTable({
+                dataTable = $("#dataTableTestText").dataTable({
                 language: {
                     "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
                 },
                 processing : true,
-                lengthMenu : [10, 1, 2, 3, 5],
+                lengthMenu : [5, 1, 2, 3, 5, 10],
                 order      : [[0,'asc']],
                 deferRender: true,
                 ajax       : '/crud/read/obtener_texto',
@@ -130,7 +141,80 @@
                     {
                         data: null,
                         render: function(data, type, row) {
-                            return '<button type="button" id="button" dataId='+data.idTestText+' class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btnEditar">Edit</button>'
+                            return '<button type="button" id="button" dataId='+data.idTestText+' class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btnEditarText">Edit</button>'
+                        }
+                    },
+                    ] 
+                })
+            }
+        </script>
+
+        <script type="text/javascript">
+            //Configuración de la DataTable
+            function recargarTablaTestMedia(){
+                if ($.fn.DataTable.isDataTable("#dataTableTestMedia")) {
+                    $("#dataTableTestMedia").dataTable().fnDestroy();
+                    $('#dataTableTestMedia').empty();
+                }
+                var thead = ""
+                var tfooter = ""
+                thead += '<thead>'
+                    thead += '<tr>'
+                    thead += '<th>Id</th>'
+                    thead += '<th>Texto</th>'
+                    thead += '<th>Ruta de imagen</th>'
+                    thead += '<th>Imagen</th>'
+                    thead += '<th>Eliminar elemento</th>'
+                    thead += '</tr>'
+                thead += '</thead>'
+                tfooter += '<tfoot>'
+                    tfooter += '<tr>'
+                    tfooter += '<th>Id</th>'
+                    tfooter += '<th>Texto</th>'
+                    tfooter += '<th>Ruta de imagen</th>'
+                    tfooter += '<th>Imagen</th>'
+                    tfooter += '<th>Eliminar elemento</th>'
+                    tfooter += '</tr>'
+                tfooter += '</tfoot>'
+                $('#dataTableTestMedia').append(thead);
+                $('#dataTableTestMedia').append(tfooter);
+                $.fn.dataTable.moment('DD-MM-YYYY'); //Para ordenar por fecha
+                dataTable = $("#dataTableTestMedia").dataTable({
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                },
+                processing : true,
+                lengthMenu : [5, 1, 2, 3, 5, 10],
+                order      : [[0,'asc']],
+                deferRender: true,
+                ajax       : '/crud/read/obtener_media',
+                columns    : [
+                    {
+                        data: "idTestMedia"
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return '<span class="badge badge-success">'+data.mediaName+'</span>'
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return '<span class="badge badge-success">'+data.mediaRoute+"-"+data.mediaName+'</span>'
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            //return '<span class="badge badge-success">'+data.mediaRoute+'</span>'
+                            return '<img src="file:///'+data.mediaRoute+'" alt="Texto alternativo" width="100" height="100">'
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return '<button type="button" id="button" dataId='+data.idTestMedia+' class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btnEditarMedia">Edit</button>'
                         }
                     },
                     ] 
@@ -140,21 +224,21 @@
 
         <script type="text/javascript">
             //Mostrar modal    
-            function mostrarModal(){   
-                $("#modalCRUD").css("display", "block");
+            function mostrarModalText(){   
+                $("#modalText").css("display", "block");
             }
         </script>
 
         <script type="text/javascript">
             //Esconder modal    
-            function esconderModal(){   
-                $("#modalCRUD").css("display", "none");
+            function esconderModalText(){   
+                $("#modalText").css("display", "none");
             }
         </script>
 
         <script type="text/javascript">
             //Mostar modal de Editar registro    
-            $(document).on("click", ".btnEditar", function(){		            
+            $(document).on("click", ".btnEditarText", function(){		            
                 opcion='editar';
                 fila = $(this).closest("tr");	        
                 id = parseInt(fila.find('td:eq(0)').text());
@@ -162,13 +246,13 @@
                 $("#idRegistro").val(id);
                 $("#descripcion").val(descripcion);          
                 $(".modal-title").text("Editar Artículo");
-                mostrarModal()
+                mostrarModalText()
             });
         </script>
 
         <script type="text/javascript">
             //Editar registro
-            $('#formRegistros').submit(function(e){                                     
+            $('#formText').submit(function(e){                                     
                 e.preventDefault();
                 id = $.trim($('#idRegistro').val());    
                 descripcion = $.trim($('#descripcion').val());
@@ -181,8 +265,8 @@
                         descripcion:descripcion
                     }),                       
                 });
-                recargarTablaUsuarios()
-                esconderModal()
+                recargarTablaTestText()
+                esconderModalText()
             });   
         </script>
 
